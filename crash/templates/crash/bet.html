@@ -1,0 +1,34 @@
+{% extends 'crash/main.html' %}
+
+{% block title %}
+    Crash
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+            </div>
+            <div class="col-sm">
+
+            {% for message in messages %}
+                <div class="alert alert-danger" style="text-align: center" role="alert">
+                  {{ message }}
+                </div>
+            {% endfor %}
+
+            <h2 style="text-align: center">Bet amount</h2>
+
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.bet_amount }}<br>
+
+                <button type="submit" class="btn btn-outline-success btn-lg btn-block">Bet</button>
+            </form>
+
+            </div>
+            <div class="col-sm">
+            </div>
+        </div>
+    </div>
+{% endblock %}

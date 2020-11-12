@@ -1,0 +1,166 @@
+{% extends 'mainwebsite/main.html' %}
+
+{% block title %}
+    Add funds
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col">
+            <div class="card text-white bg-dark mb-3" style="width: 18rem; margin:auto">
+            <div class="card-body">
+                <h5 class="card-title">Add 50$</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Add funds to account</h6>
+                {% if amount == 50 %}
+                <button type="button" class="btn btn-success btn-lg btn-block">
+                    <a href="{% url 'deposit' 50 %}" class="text-light">Deposit 50$</a>
+                </button>
+                {% else %}
+                <button type="button" class="btn btn-secondary btn-lg btn-block">
+                    <a href="{% url 'deposit' 50 %}" class="text-light">Deposit 50$</a>
+                </button>
+                {% endif %}
+            </div>
+            </div>
+        </div>
+
+        <div class="col">
+        </div>
+        <div class="w-100">
+        </div>
+
+        <div class="col">
+            <div class="card text-white bg-dark mb-3" style="width: 18rem; margin:auto">
+            <div class="card-body">
+                <h5 class="card-title">Add 150$</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Add funds to account</h6>
+                {% if amount == 150 %}
+                <button type="button" class="btn btn-success btn-lg btn-block">
+                    <a href="{% url 'deposit' 150 %}" class="text-light">Deposit 150$</a>
+                </button>
+                {% else %}
+                <button type="button" class="btn btn-secondary btn-lg btn-block">
+                    <a href="{% url 'deposit' 150 %}" class="text-light">Deposit 150$</a>
+                </button>
+                {% endif %}
+            </div>
+        </div>
+        </div>
+
+        <div class="col">
+            <div class="row">
+              <div class="col-6 col-md-4">
+                <head>
+                    <!-- Add meta tags for mobile and IE -->
+                    <meta name="viewport" content="width=device-width, initial-scale=1">
+                    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                </head>
+
+                <body>
+                    <!-- Set up a container element for the button -->
+                    <div id="paypal-button-container" style="margin-top:3rem;"></div>
+
+                    <!-- Include the PayPal JavaScript SDK -->
+                    <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>
+
+                    <script>
+                        function getCookie(name) {
+                            let cookieValue = null;
+                            if (document.cookie && document.cookie !== '') {
+                                const cookies = document.cookie.split(';');
+                                for (let i = 0; i < cookies.length; i++) {
+                                    const cookie = cookies[i].trim();
+                                    // Does this cookie string begin with the name we want?
+                                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                        break;
+                                    }
+                                }
+                            }
+                            return cookieValue;
+                        }
+                        const csrftoken = getCookie('csrftoken');
+
+                        var amount = '{{ amount }}'
+                        var user = '{{ user }}'
+
+                        function completePayment(){
+                            var url = "{% url 'complete_deposit' %}"
+
+                            fetch(url, {
+                                method:'POST',
+                                headers: {
+                                    'Content-type':'application/json',
+                                    'X-CSRFToken': csrftoken,
+                                },
+                                body:JSON.stringify({'user': user,
+                                                     'amount': amount,})
+                            })
+                        }
+
+                        // Render the PayPal button into #paypal-button-container
+                        paypal.Buttons({
+
+                            style: {
+                                color:  'blue',
+                                shape:  'pill',
+                                label:  'pay',
+                                height: 40
+                            },
+
+                            // Set up the transaction
+                            createOrder: function(data, actions) {
+                                return actions.order.create({
+                                    purchase_units: [{
+                                        amount: {
+                                            value: amount
+                                        }
+                                    }]
+                                });
+                            },
+
+                            // Finalize the transaction
+                            onApprove: function(data, actions) {
+                                return actions.order.capture().then(function(details) {
+                                    // Show a success message to the buyer
+                                    completePayment()
+                                    alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                                });
+                            }
+
+
+                        }).render('#paypal-button-container');
+                    </script>
+                </body>
+              </div>
+
+              <div class="col-6 col-md-4">
+              </div>
+              <div class="col-6 col-md-4">
+              </div>
+            </div>
+        </div>
+
+        <div class="w-100"></div>
+        <div class="col">
+            <div class="card text-white bg-dark mb-3" style="width: 18rem; margin:auto">
+            <div class="card-body">
+                <h5 class="card-title">Add 500$</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Add funds to account</h6>
+                {% if amount == 500 %}
+                <button type="button" class="btn btn-success btn-lg btn-block">
+                    <a href="{% url 'deposit' 500 %}" class="text-light">Deposit 500$</a>
+                </button>
+                {% else %}
+                <button type="button" class="btn btn-secondary btn-lg btn-block">
+                    <a href="{% url 'deposit' 500 %}" class="text-light">Deposit 500$</a>
+                </button>
+                {% endif %}
+            </div>
+        </div>
+        </div>
+
+        <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}

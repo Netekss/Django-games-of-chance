@@ -1,0 +1,68 @@
+{% extends 'mainwebsite/main.html' %}
+
+{% block title %}
+    Django-games
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col">
+                <div id="container" style="width: 75%;">
+                    <canvas id="pie-chart"></canvas>
+                </div>
+
+                <script>
+                    var config = {
+                      type: 'pie',
+                      data: {
+                        datasets: [{
+                          data: {{ data|safe }},
+                          backgroundColor: [
+                            '#28a745', '#dc3545', '#ffc107'
+                          ],
+                          label: 'Population'
+                        }],
+                        labels: {{ labels|safe }}
+                      },
+                      options: {
+                        responsive: true
+                      }
+                    };
+
+                    window.onload = function() {
+                      var ctx = document.getElementById('pie-chart').getContext('2d');
+                      window.myPie = new Chart(ctx, config);
+                    };
+                </script>
+
+                <br>
+                {% for message in messages %}
+                    {% if 'success' in message.tags %}
+                    <div class="alert alert-success" style="text-align:center" role="alert">
+                        {{ message }}
+                    </div>
+                    {% else %}
+                    <div class="alert alert-danger" style="text-align:center" role="alert">
+                        {{ message }}
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="col">
+                <h1>Games</h1>
+                <h2>Available games:</h2>
+                <h2><a href="{% url 'guessnumber_level_choice' %}">Guess number</a></h2>
+                <h2><a href="{% url 'crash_bet' %}">Crash</a></h2>
+                <br>
+                <h2>Coming soon:</h2>
+                <h2>Hangman</h2>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

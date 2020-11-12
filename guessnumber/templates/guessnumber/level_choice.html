@@ -1,0 +1,46 @@
+{% extends 'guessnumber/main.html' %}
+
+{% block title %}
+    Guess number
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+
+    <div class="col-sm">
+        <div class="card text-white bg-dark mb-3" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title" style="text-align:center">Easy</h5>
+                <h6 class="card-subtitle mb-2 text-muted" style="text-align:center">1 of 5</h6>
+                <p class="card-text">If you choose level Easy and correctly guess two numbers you will win 1.25x of your bet money. Good Luck!</p>
+                <a href="{% url 'guessnumber_level_easy' %}" type="button" class="btn btn-secondary btn-lg btn-block">Start</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm">
+      <div class="card text-white bg-dark mb-3" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title" style="text-align: center">Normal</h5>
+                <h6 class="card-subtitle mb-2 text-muted" style="text-align:center">2 of 10</h6>
+                <p class="card-text">If you choose level Normal and correctly guess two numbers you will win 2x of your bet money. Good Luck!</p>
+                <a href="{% url 'guessnumber_level_normal' %}" type="button" class="btn btn-secondary btn-lg btn-block">Start</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm">
+      <div class="card text-white bg-dark mb-3" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title" style="text-align:center">Hard</h5>
+                <h6 class="card-subtitle mb-2 text-muted" style="text-align:center">2 of 15 + 1 of 5</h6>
+                <p class="card-text">If you choose level Hard and correctly guess two numbers and one special you will win 10x of your bet money. Good Luck!</p>
+                <a href="{% url 'guessnumber_level_hard' %}" type="button" class="btn btn-secondary btn-lg btn-block">Start</a>
+            </div>
+        </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

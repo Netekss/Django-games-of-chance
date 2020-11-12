@@ -1,0 +1,51 @@
+{% extends 'guessnumber/main.html' %}
+
+{% block title %}
+    Guess number
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+            </div>
+            <div class="col-sm">
+
+                <div style="text-align:center">
+                    {% for message in messages %}
+                        {% if 'success' in message.tags %}
+                            <div class="alert alert-success" role="alert">
+                              {{ message }}
+                            </div>
+                        {% elif 'info' in message.tags %}
+                            <div class="alert alert-info" role="alert">
+                              {{ message }}
+                            </div>
+                        {% elif 'error' in message.tags %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+
+                    <form method="POST">
+                        {% csrf_token %}
+                        <h2>Bet amount</h2>
+                        {{ form.bet_amount }}<br>
+
+                        {{ form.given_number_1 }}<br>
+
+                        {{ form.given_number_2 }}<br>
+
+                        <button type="submit" class="btn btn-success btn-lg btn-block">Check!</button>
+                    </form>
+                </div>
+
+            </div>
+            <div class="col-sm">
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

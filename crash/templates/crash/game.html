@@ -1,0 +1,35 @@
+{% extends 'crash/main.html' %}
+
+{% block title %}
+    Crash
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+            </div>
+            <div class="col-sm">
+
+            <div class="alert alert-success" style="text-align: center" role="alert">
+            bet: {{player_profile.money_in_attempt}}
+            </div>
+
+            <div class="alert alert-success" style="text-align: center" role="alert">
+            attempt: {{player_profile.attempt}}
+            </div>
+
+            <button type="submit" class="btn btn-outline-success btn-lg btn-block">
+                <a href="{% url 'crash_play' %}">Play!</a><br>
+            </button>
+
+            <button type="submit" class="btn btn-outline-success btn-lg btn-block">
+                <a href="{% url 'take_money' %}">take money</a><br>
+            </button>
+
+            </div>
+            <div class="col-sm">
+            </div>
+        </div>
+    </div>
+{% endblock %}
