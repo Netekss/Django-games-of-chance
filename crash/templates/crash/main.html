@@ -25,7 +25,10 @@
                     <a class="nav-link text-white bg-dark" href="{% url 'mainwebsite_index' %}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white bg-dark" href="{% url 'add_funds' %}">{{request.user.user.money}}$</a>
+                    <a class="nav-link text-white bg-dark" href="{% url 'add_funds' %}">Add funds</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled text-white bg-dark">{{request.user.user.money}}$</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white bg-dark" href="{% url 'logout' %}">logout</a>
